@@ -1,52 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Text, View, ImageBackground, StyleSheet, KeyboardAvoidingView, TextInput, Button, TouchableWithoutFeedback, Keyboard } from 'react-native';
-
-export class LoginScreen extends Component {
-  constructor(props){
-    super(props)
-
-    this.state = {
-      number: Number
-    }
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <ImageBackground
-          style={styles.image}>
-          <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss() } }>
-            <KeyboardAvoidingView
-              behavior="padding"
-              style={styles.content}
-              keyboardVerticalOffset={150}
-              >
-              <Text style={styles.text}>Tracker</Text>
-              <TextInput
-                placeholder="Login"
-                style={styles.textInput}
-                keyboardType='numeric'
-                onChangeText={(tableNumber) => {this.setState({ number: tableNumber })}}
-                />
-              <TextInput
-                placeholder="Senha"
-                style={styles.textInput}
-                keyboardType='numeric'
-                onChangeText={(tableNumber) => {this.setState({ number: tableNumber })}}
-              />
-              <Button
-                title="Entrar"
-                onPress={() => { this.props.navigation.navigate('Dashboard') }}
-                style={styles.button}
-                color="black"
-                />
-            </KeyboardAvoidingView>
-          </TouchableWithoutFeedback>
-        </ImageBackground>
-      </View>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -86,5 +40,61 @@ const styles = StyleSheet.create({
     minWidth: 250,
   },
 });
+
+class LoginScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      number: '',
+    };
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles.image}
+        >
+          <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
+            <KeyboardAvoidingView
+              behavior="padding"
+              style={styles.content}
+              keyboardVerticalOffset={150}
+            >
+              <Text style={styles.text}>Tracker</Text>
+              <TextInput
+                placeholder="Login"
+                style={styles.textInput}
+                keyboardType="numeric"
+                value={this.state.number}
+                onChangeText={(tableNumber) => { this.setState({ number: tableNumber }); }}
+              />
+              <TextInput
+                placeholder="Senha"
+                style={styles.textInput}
+                keyboardType="numeric"
+                value={this.state.number}
+                onChangeText={(tableNumber) => { this.setState({ number: tableNumber }); }}
+              />
+              <Button
+                title="Entrar"
+                onPress={() => { this.props.navigation.navigate('Dashboard'); }}
+                style={styles.button}
+                color="black"
+              />
+            </KeyboardAvoidingView>
+          </TouchableWithoutFeedback>
+        </ImageBackground>
+      </View>
+    );
+  }
+}
+
+LoginScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default LoginScreen;
